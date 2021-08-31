@@ -1,50 +1,43 @@
 
-.navbar {
-    margin:auto;
-    width:50%;
+.navibar {
+    background-color:black;
+    border: solid black 2px;
+    margin:0px;
+    padding:0px;
+    position:fixed;
 }
 
 li {
     float: left;
 }
 
-ul {
+.navlist {
     list-style-type:none;
-    display:block;
     font-family:Arial, sans-serif;
     text-align:center;
-    background-color: black;
-    margin-left:5%;
-    margin-right:5%;
+    overflow:hidden;
+    margin:0px;
+    padding:0px;
 }
 
-.blackTea {
-    background-color:darkslategray;
+.navlink {
+    display:block;
+    text-align:center;
+    padding:10px;
+    margin:0px;
+    text-decoration:none;
     color:white;
+    background-color:darkturquoise;
 }
-.whiteTea {
-    background-color:wheat;
+.navlink:hover {
+    background-color: rgb(21, 156, 158);
+}
+
+.dropdown {
+    display:none;
     color:black;
 }
-.greenTea {
-    background-color:palegreen;
-    color:black;
-}
-.rooibos {
-    background-color:darkred;
-    color:white;
-}
-.oolong {
-    background-color: gold;
-    color: black;
-}
-.puerh {
-    background-color:darkolivegreen;
-    color: black;
-}
 
-.tile {
-    padding:5%;
-
-    border:2px solid black;
+.navlink:hover .dropdown {
+    display:block;
 }
