@@ -1,0 +1,50 @@
+
+.navbar {
+    margin:auto;
+    width:50%;
+}
+
+li {
+    float: left;
+}
+
+ul {
+    list-style-type:none;
+    display:block;
+    font-family:Arial, sans-serif;
+    text-align:center;
+    background-color: black;
+    margin-left:5%;
+    margin-right:5%;
+}
+
+.blackTea {
+    background-color:darkslategray;
+    color:white;
+}
+.whiteTea {
+    background-color:wheat;
+    color:black;
+}
+.greenTea {
+    background-color:palegreen;
+    color:black;
+}
+.rooibos {
+    background-color:darkred;
+    color:white;
+}
+.oolong {
+    background-color: gold;
+    color: black;
+}
+.puerh {
+    background-color:darkolivegreen;
+    color: black;
+}
+
+.tile {
+    padding:5%;
+
+    border:2px solid black;
+}
