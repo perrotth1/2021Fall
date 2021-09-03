@@ -35,7 +35,6 @@ body {
 
 .dropdown {
     display: none;
-    background-color: rgb(76, 93, 110);
     overflow: visible;
 }
 .dropdownList {
@@ -48,5 +47,6 @@ body {
 }
 
 .navTile:hover + .dropdown {
-    display: inline;
+    display: block;
+    background-color: rgb(76, 93, 110);
 }
