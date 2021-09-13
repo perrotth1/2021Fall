@@ -19,14 +19,14 @@
                 <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
               </a>
           
-              <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+              <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" :class="{ isActive: navBarIsActive }">
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
               </a>
             </div>
           
-            <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-menu" :class="{ isActive: navBarIsActive }">
               <div class="navbar-start">
                 <a class="navbar-item">
                   Home
@@ -108,7 +108,8 @@
           return {
             counter: 0,
             now: Date().toLocaleString(),
-            visible: true;
+            visible: true,
+            navBarIsActive: false,
           }
         },
         mounted() {
@@ -119,11 +120,11 @@
             this.counter += 10;
           },
           close(){
-            
+            this.visible = false;
           }
         }
       }
-      Vue.createApp(VM).mount('.container')  //Passing function VM to be mounted into our HTML 
+      Vue.createApp(VM).mount('.container');  //Passing function VM to be mounted into our HTML 
 
         let size = 10;
         $(".message-header").click(function(){
