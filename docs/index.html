@@ -108,11 +108,11 @@
           return {
             counter: 0,
             now: Date().toLocaleString(),
-            visible: true
+            visible: true;
           }
         },
         mounted() {
-          setInterval(() => { this.counter++ }, 1000)
+          setInterval(() => { this.counter++ }, 1000);
         },
         methods: {
           grow(){
