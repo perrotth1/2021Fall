@@ -80,7 +80,7 @@
         <p class="subtitle">
           My first website with <strong>Bulma</strong> {{now}}
         </p>
-        <article class="message is-message" :style="'${ visible ? visible=true }">
+        <article class="message is-message" :style="'${ visible ? visible=true }'">
           <div class="message-header" :style="' font-size: ${counter}px '}">
             <p>Primary</p>
             <button class="delete" aria-label="delete"></button>
@@ -124,8 +124,6 @@
         }
       }
       Vue.createApp(VM).mount('.container')  //Passing function VM to be mounted into our HTML 
-
-
 
         let size = 10;
         $(".message-header").click(function(){
