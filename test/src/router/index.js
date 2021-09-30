@@ -22,6 +22,4 @@ const router = createRouter({
   routes
 })
 
-export default router  //everything in your module is automatically private. This line says 
-                        //export the router as the default export of this module so when we import
-                        //this module somewhere else we are importing router object. 
+export default router
