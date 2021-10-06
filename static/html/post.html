@@ -6,9 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-    <script src="https://kit.fontawesome.com/2273a0a84e.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css/stylesheet.css">
 
-    <title>Home</title>
+    <script src="https://kit.fontawesome.com/2273a0a84e.js" crossorigin="anonymous"></script>
+    <script src="../src/readExcel.js"></script>
+
+    <title>Caviar</title>
 
 </head>
 <body>
@@ -69,7 +72,7 @@
             <div class="navbar-end">
             <div class="navbar-item">
                 <div class="buttons">
-                <a class="button is-primary" href="signup.html" style="background-color: rgb(137, 211, 137); ">
+                <a class="button is-primary" href="signup.html">
                     <strong>Sign up</strong>
                 </a>
                 <a class="button is-light" href="login.html">
@@ -80,5 +83,93 @@
             </div>
         </div>
     </nav>
-     
+    <div class="container">
+        <div class="box" id="postBox">
+            <div class="columns">
+                <div class="column">
+                    <input class="input is-primary" type="text" placeholder="Outfit Title">
+                </div>
+            </div>
+            <hr>
+            <div class="columns">
+                <div class="column is-3">
+                    <figure class="image is-square">
+                        <img src="https://images-na.ssl-images-amazon.com/images/I/41jS2lfDYzL._AC_UL650_SR500,650_QL65_.jpg" style="border-radius: 10px;">
+                    </figure>
+                </div>
+                <div class="column is-3">
+                    <input class="input is-primary" type="text" name="search" placeholder="Search tops..."> 
+                    <br><br>
+                    Or choose custom pic:
+                    <div class="file">
+                        <label class="file-label">
+                          <input class="file-input" type="file" name="example">
+                          <span class="file-cta">
+                            <span class="file-icon">
+                                <i class="fas fa-upload"></i>
+                            </span>
+                            <span class="file-label">
+                                Choose file…
+                            </span>
+                          </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column is-3">
+                    <figure class="image is-square">
+                        <img src="https://images-na.ssl-images-amazon.com/images/I/31N6yyCtzCL._AC_UL650_SR500,650_QL65_.jpg" style="border-radius: 10px;">
+                    </figure>
+                </div>
+                <div class="column is-3">
+                    <input class="input is-primary" type="text" name="search" placeholder="Search bottoms...">
+                    <br><br>
+                    Or choose custom pic:
+                    <div class="file">
+                        <label class="file-label">
+                          <input class="file-input" type="file" name="example">
+                          <span class="file-cta">
+                            <span class="file-icon">
+                                <i class="fas fa-upload"></i>
+                            </span>
+                            <span class="file-label">
+                                Choose file…
+                            </span>
+                          </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column is-3">
+                    <figure class="image is-square">
+                        <img src="https://images-na.ssl-images-amazon.com/images/I/419e91p9rQL._AC_UL650_SR500,650_QL65_.jpg" style="border-radius: 10px;">
+                    </figure>
+                </div>
+                <div class="column is-3">
+                    <input class="input is-primary" type="text" name="search" placeholder="Search shoes...">
+                    <br><br>
+                    Or choose custom pic:
+                    <div class="file">
+                        <label class="file-label">
+                          <input class="file-input" type="file" name="example">
+                          <span class="file-cta">
+                            <span class="file-icon">
+                                <i class="fas fa-upload"></i>
+                            </span>
+                            <span class="file-label">
+                                Choose file…
+                            </span>
+                          </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <textarea class="textarea" placeholder="Caption"></textarea>
+            <br>
+            <button class="button">Post</button>
+        </div>
+    </div>
 </body>

@@ -1,5 +1,18 @@
 
 body {
-    background-image: url('../assets/bg.jpg');
+    background-image: url("../assets/placeholders/bg.jpg");
+}
+
+#feedBox, #postBox {
+    background-color: rgb(21, 21, 27);
+}
+
+#infoBox {
+    background-color: rgb(125,195,254);
+
+}
+
+.button .is-primary {
+    background-color: rgb(125,195,254)
 
 }
