@@ -16,3 +16,7 @@ body {
     background-color: rgb(125,195,254)
 
 }
+
+.resultsBox {
+    display: none;
+}
