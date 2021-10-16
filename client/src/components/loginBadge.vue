@@ -8,22 +8,22 @@
           </a>
         </div>
         <div v-else>
-            Hello {{Session.user.firstName}}
+            Hello {{name}}
         </div>
 </template>
 
 <script>
-import Session, { login } from "../services/session";
+import Session from "../services/session";
 
 export default {
-    data: ()=>({ 
-        Session
-    }),
+    data (){
+        return ({
+            Session
+        })
+    },
     methods: {
         login(){
-            console.log(Session);
-            login();
-            console.log(Session);
+            this.$router.push('/login');
         }
     },
     computed: {
