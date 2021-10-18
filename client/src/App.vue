@@ -1,22 +1,23 @@
 <template>
   <div class="container">
-    <Nav />
-    
-    <router-view/>
-  </div>
+    <div class="columns">
+      <div class="column">
+        <Nav />
 
+        <router-view />
+      </div>
+    </div>
+  </div>
 </template>
 
 <style lang="scss">
-
 </style>
 
 <script>
 import Nav from "./components/Nav";
-
-export default { 
+export default {
   components: {
-    Nav 
-  }
-}
+    Nav,
+  },
+};
 </script>

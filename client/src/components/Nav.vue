@@ -2,8 +2,8 @@
   <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <a class="navbar-item" href="https://bulma.io">
-        <img src="../assets/temp.png" />
-        <h3>BE HAPPY</h3>
+        <img src="../assets/logo.png" height="28" />
+        <h3 class="title">Be Happy</h3>
       </a>
 
       <a
@@ -22,15 +22,42 @@
 
     <div class="navbar-menu" :class="{ 'is-active': isActive }">
       <div class="navbar-start">
-        <a class="navbar-item"> Home </a>
+        <router-link
+          class="navbar-item is-tab"
+          to="/"
+          active-class="is-active"
+          exact
+        >
+          Home
+        </router-link>
 
-        <a class="navbar-item"> Documentation </a>
+        <router-link
+          class="navbar-item is-tab"
+          to="/feed"
+          active-class="is-active"
+        >
+          Feed
+        </router-link>
+
+        <router-link
+          class="navbar-item is-tab"
+          to="/about"
+          active-class="is-active"
+        >
+          Documentation
+        </router-link>
 
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link"> More </a>
 
           <div class="navbar-dropdown">
-            <a class="navbar-item"> About </a>
+            <router-link
+              class="navbar-item is-tab"
+              to="about"
+              active-class="is-active"
+            >
+              About
+            </router-link>
             <a class="navbar-item"> Jobs </a>
             <a class="navbar-item"> Contact </a>
             <hr class="navbar-divider" />
@@ -41,7 +68,7 @@
 
       <div class="navbar-end">
         <div class="navbar-item">
-          <loginBadge />
+          <login-badge />
         </div>
       </div>
     </div>
@@ -49,14 +76,15 @@
 </template>
 
 <script>
-import loginBadge from "./loginBadge";
-
+import LoginBadge from "./LoginBadge";
 export default {
   data() {
-    return;
+    return {
+      isActive: false,
+    };
   },
   components: {
-    loginBadge,
+    LoginBadge,
   },
 };
 </script>
