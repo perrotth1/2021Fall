@@ -3,7 +3,6 @@ import Session from '../services/session';
 import Home from '../views/Home.vue';
 import Feed from '../views/Feed.vue';
 
-
 const routes = [
     {
         path: '/',

@@ -1,14 +1,10 @@
 <template>
   <div class="section">
-      <h1 class="title">
-          Feed Page
-
-
-      </h1>
+      <h1 class="title"> Feed Page </h1>
       <div class="columns">
         <div class="column is-one-third is-offset-one-third">
             
-            <div class="post" v-for="p in posts" :key="p.src">
+            <div class="post" v-for="p in posts" :key="p.src">  <!--For loop-->
                 <post :post="p" />
             </div>
 
@@ -24,8 +20,11 @@
 import Post from '../components/Post.vue';
 import session from "../services/session";
 import { GetWall } from "../services/posts";
+
 export default {
-  components: { Post },
+  components: { 
+      Post 
+    },
     data: ()=> ({
         posts: GetWall(session.user.handle)
     })

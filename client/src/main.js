@@ -1,9 +1,18 @@
-import { createApp } from 'vue'   //Imported object from nodemodules 
-import "@fortawesome/fontawesome-free"
-import "bulma"
+import { createApp } from 'vue';   //Imported object from nodemodules 
+import "@fortawesome/fontawesome-free/css/all.css";
+import "bulma";
 
-import App from './App.vue'       //Importing our own object App that we created
-import router from './router'     //
+import { Notification, Config } from '@oruga-ui/oruga-next';
+import '@oruga-ui/oruga-next/dist/oruga-full.css';
 
-createApp(App).use(router).mount('#app')     //Mounting our app in element with id "app"
+import App from './App.vue';       //Importing our own object App that we created
+import router from './router';     //
+
+createApp(App)
+    .use(router)
+    .use(Notification)
+    .use(Config, {
+        iconPack: 'fas'
+    })
+    .mount('#app');   //Mounting our app in element with id "app"
 
