@@ -1,21 +1,24 @@
-const express = require('express')    //Commonjs way of importing library is require
-const usersController = require('./controllers/users');
+const express = require('express');    //Commonjs way of importing library is require
+const path = require('path');
+
+const usersController = require('./controllers/users'); 
 
 const app = express()
 const port = 3000
 
 app
-  .get('*', (req, res, next) => {
+  //First we handle requests for files that do exist, then at the end we handle those for files that don't exist
+  
+  .get('*', (req, res, next) => {     //Example: Registering these functions to handle specific situations. 
   console.log("a request came in");
   next();
   })
-  .get('/', (req, res) => {     //Registering these functions to handle specific situations. 
-  res.send('Hello World!')
-  })
-  .get('/newpaltz', (req, res) => {
-  res.send('Hello New Paltz!')    
-  })
+
+  .use('/', express.static(path.join(__dirname, '../docs')) )     //static() returns a subpipeline just like a router
   .use('/users', usersController)
+
+    //If you've gotten to this point in the pipeline, no matter what is being requested we serve index.html file
+  .get('*', (req, res) => res.sendFile(path.join(__dirname, '../docs/index.html')))
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
