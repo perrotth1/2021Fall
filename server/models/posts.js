@@ -79,3 +79,8 @@ module.exports.Delete =  function Delete(post_id) {
     list.splice(post_id, 1);
     return post;
 } 
+
+//a predicate is a function that takes a parameter and returns true or false
+//.filter method takes a predicate function as its parameter, which is the test function that find will
+//input each item in the array it is called on and return the items that the test function returns true for
+module.exports.Search = q => list.filter(x => x.caption.includes(q));

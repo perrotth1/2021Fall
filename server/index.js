@@ -1,11 +1,16 @@
 const express = require('express');    //Commonjs way of importing library is require
 const path = require('path');
 
+
 require('dotenv').config();   //We don't need to create an object; we just call method directly from require
 
 console.log(`The best class at New Paltz is ${process.env.BEST_CLASS}`);  //interpolated string
 
+//Having environmental variables lets us allow the end user of the webapp to set their own config variables
+//in heroku for example there is a page for setting env variables
+
 const usersController = require('./controllers/users'); 
+const postsController = require('./controllers/posts');
 
 const app = express();
 const port = process.env.PORT || 3000;    //We now pull variables like port from the .env file using dotenv library which allows us to set environmental variables
@@ -21,7 +26,9 @@ app
   })
 
   .use('/', express.static(path.join(__dirname, '../docs')) )     //static() returns a subpipeline just like a router
+  
   .use('/users', usersController)
+  .use('/posts', postsController)
 
     //If you've gotten to this point in the pipeline, no matter what is being requested we serve index.html file
   .get('*', (req, res) => res.sendFile(path.join(__dirname, '../docs/index.html')))

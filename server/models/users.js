@@ -40,7 +40,15 @@ const list = [
 ];
 
 module.exports.GetAll =  function GetAll() { return list; }
-module.exports.Get =  function Get(user_id) { return list[user_id]; }
+
+module.exports.Get =  user_id => list[user_id]; 
+//this shows how fat arrow works. This has the same effect as the line above. We are creating the property
+//module.exports.Get (the property is Get in the object module.exports). Then the function is user_id 
+//and we don't need to write function as we put a fat arrow after it so it automatically is. There is 
+//only one parameter which is user_id so we don't need paranthesis either. And there is only one line of
+//code in the function which is a return, so we don't even need to write return. list[user_id] is 
+//automatically returned
+
 module.exports.GetByHandle =  function GetByHandle(handle) { return ({ ...list.find( x => x.handle == handle ), password: undefined }); } 
 
 module.exports.Add =  function Add(user) {
