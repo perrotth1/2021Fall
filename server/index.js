@@ -1,10 +1,16 @@
 const express = require('express');    //Commonjs way of importing library is require
 const path = require('path');
 
+require('dotenv').config();   //We don't need to create an object; we just call method directly from require
+
+console.log(`The best class at New Paltz is ${process.env.BEST_CLASS}`);  //interpolated string
+
 const usersController = require('./controllers/users'); 
 
-const app = express()
-const port = 3000
+const app = express();
+const port = process.env.PORT || 3000;    //We now pull variables like port from the .env file using dotenv library which allows us to set environmental variables
+                                          //unless PORT is undefined then the OR operator goes to the 3000 value
+
 
 app
   //First we handle requests for files that do exist, then at the end we handle those for files that don't exist
