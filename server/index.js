@@ -1,7 +1,6 @@
 const express = require('express');    //Commonjs way of importing library is require
 const path = require('path');
 
-
 require('dotenv').config();   //We don't need to create an object; we just call method directly from require
 
 console.log(`The best class at New Paltz is ${process.env.BEST_CLASS}`);  //interpolated string
@@ -27,16 +26,23 @@ app
 
   .use('/', express.static(path.join(__dirname, '../docs')) )     //static() returns a subpipeline just like a router
   
+  .use(express.json())
+
   .use('/users', usersController)
   .use('/posts', postsController)
 
     //If you've gotten to this point in the pipeline, no matter what is being requested we serve index.html file
   .get('*', (req, res) => res.sendFile(path.join(__dirname, '../docs/index.html')))
 
+  .use((err, req, res, next)=>{
+    //Helpful to write error to terminal
+    console.error(err);
+    res.status(err.code || 500).send(err);
+  })
+
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
-
 
 
 

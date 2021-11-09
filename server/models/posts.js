@@ -57,19 +57,27 @@ module.exports.GetAll =  function GetAll() {
 }
 
 module.exports.GetWall =  function GetWall(handle) {
-    return listWithOwner().filter(post=> post.user_handle == handle);
+    return listWithOwner().filter(post => post.user_handle == handle);
 }
 
 module.exports.GetFeed =  function GetFeed(handle) { return listWithOwner()
     .filter(post=> GetByHandle(handle).following.some(f=> f.handle == post.user_handle && f.isApproved) );     }
 
 module.exports.Get =  function Get(post_id) { return list[post_id]; }
+
+
 module.exports.Add =  function Add(post) {
     if(!post.user_handle){
         throw {code: 422, msg: "Post must have an Owner"}
     }
-     list.push(post);
-     return { ...post };
+
+    post.time = Date();
+
+    list.push(post);
+
+    post.id = list.length;
+
+    return { ...post };
 }
 
 module.exports.Update =  function Update(post_id, post) {

@@ -4,9 +4,7 @@ import { NotificationProgrammatic } from "@oruga-ui/oruga-next/dist/esm/notifica
 
 const session = {
     user: null,
-    messages: [ 
-        { text: "Hello World", type: "danger"},     // {text: string, type: string} placeholders here for now    
-    ],       
+    messages: [],      // {text: string, type: string} placeholders here for now    
     toRoute: '/feed',
     Login(handle, password){
         try{

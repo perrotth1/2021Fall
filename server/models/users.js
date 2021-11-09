@@ -1,3 +1,10 @@
+const bcrypt = require('bcrypt');
+const { ObjectId } = require('bson');
+const { client } = require('./mongo');
+
+const collection = client.db(process.env.MONGO_DBNAME).collection('users');
+
+
 const list = [
     { 
         firstName: 'Moshe',
@@ -39,9 +46,10 @@ const list = [
 
 ];
 
-module.exports.GetAll =  function GetAll() { return list; }
 
-module.exports.Get =  user_id => list[user_id]; 
+module.exports.GetAll =  function GetAll() { return collection.find().toArray(); }      //uses mongoDB function of collection object
+
+module.exports.Get =  user_id => collection.findOne({_id: user_id}); 
 //this shows how fat arrow works. This has the same effect as the line above. We are creating the property
 //module.exports.Get (the property is Get in the object module.exports). Then the function is user_id 
 //and we don't need to write function as we put a fat arrow after it so it automatically is. There is 
@@ -49,8 +57,31 @@ module.exports.Get =  user_id => list[user_id];
 //code in the function which is a return, so we don't even need to write return. list[user_id] is 
 //automatically returned
 
-module.exports.GetByHandle =  function GetByHandle(handle) { return ({ ...list.find( x => x.handle == handle ), password: undefined }); } 
+module.exports.GetByHandle = (handle) => ({ ...collection.findOne({ handle }), password: undefined }); 
 
+module.exports.Add = async function Add(user){
+    if(!user.firstName){
+        return Promise.reject({ code: 422, msg: "A first name is required" });
+    }
+
+    const hash = await bcrypt.hash(user.password, +process.env.SALT_ROUNDS);
+
+    console.log({
+        user, 
+        salt: process.env.SALT_ROUNDS, 
+        hash
+    })
+
+    user.password = hash;
+
+    const user2 = await collection.insertOne(user);
+    user._id = user2.insertedId;
+
+    return { ...user, password: undefined };
+}
+
+/*
+//OLD WAY OF DOING IT: 
 module.exports.Add =  function Add(user) {
     if(!user.firstName){
         throw { code: 422, msg: "First Name is required" }
@@ -58,24 +89,20 @@ module.exports.Add =  function Add(user) {
      list.push(user);
      return { ...user, password: undefined };
 }
+*/
 
+module.exports.Update = async function Update(user_id, user){
 
-module.exports.Update =  function Update(user_id, user) {
-    const oldObj = list[user_id];
-    if(user.firstName){
-        oldObj.firstName = user.firstName;
-    }
-    if(user.lastName){
-        oldObj.lastName = user.lastName;
-    }
-    if(user.handle){
-        oldObj.handle = user.handle;
-    }
-    if(user.pic){
-        oldObj.pic = user.pic;
-    }
-    //list[user_id] = newObj ;
-    return { ...oldObj, password: undefined };
+    const results = await collection.findOneAndUpdate(
+        { _id: ObjectId(user_id) },
+        { $set: user },
+        { returnDocument: 'after' }
+    );
+
+    console.log({ user_id, results });
+
+    return { ...results.value, password: undefined };
+
 }
 
 module.exports.Delete =  function Delete(user_id) {
@@ -84,18 +111,31 @@ module.exports.Delete =  function Delete(user_id) {
     return user;
 }
 
-module.exports.Login =  function Login(handle, password){
+module.exports.Login =  async function Login(handle, password){
     console.log({ handle, password})
-    const user = list.find(x=> x.handle == handle);
-    if(!user) throw { code: 401, msg: "Sorry there is no user with that handle" };
 
-    if( ! (password == user.password) ){
-        throw { code: 401, msg: "Wrong Password" };
+    const user = await collection.findOne({ handle });
+
+    if(!user){
+        return Promise.reject({ code: 401, msg: "Sorry there is no user with that handle" });
+    }
+
+    const result = await bcrypt.compare(password, user.password);
+
+    if( !result ){
+        throw { err: 401, msg: "Wrong password" };
     }
 
     const data = { ...user, password: undefined };
 
     return { user: data };
+
+}
+
+module.exports.Seed = async ()=>{
+    for (const x of list){
+        await module.exports.Add(x);
+    }
 }
 
 //We converted the export syntax from ES6 (used in Vue) to commonJS syntax
