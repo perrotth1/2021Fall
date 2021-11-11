@@ -94,9 +94,9 @@ module.exports.Add =  function Add(user) {
 module.exports.Update = async function Update(user_id, user){
 
     const results = await collection.findOneAndUpdate(
-        { _id: ObjectId(user_id) },
-        { $set: user },
-        { returnDocument: 'after' }
+        { _id: ObjectId(user_id) },     //where _id equals user id (this is what finds)
+        { $set: user },                 //$set operator in mongo does the patching 
+        { returnDocument: 'after' }     //options. This says return the updated object
     );
 
     console.log({ user_id, results });

@@ -25,7 +25,13 @@ app
   })
 
   .use('/', express.static(path.join(__dirname, '../docs')) )     //static() returns a subpipeline just like a router
-  
+
+  .use((req, res, next) => {      
+    res.setHeader('Access-Control-Allow-Origin', '*');    //CORS headers. Sending headers that say "We know you're coming from another 3rd party site and that's fine"
+    res.setHeader('Access-Control-Allow-Methods', '*');
+    res.setHeader('Access-Control-Allow-Headers', '*');
+  })
+
   .use(express.json())
 
   .use('/users', usersController)
