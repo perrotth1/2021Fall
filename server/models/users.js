@@ -3,7 +3,7 @@ const { ObjectId } = require('bson');
 const { client } = require('./mongo');
 
 const collection = client.db(process.env.MONGO_DBNAME).collection('users');
-
+module.exports.collection = collection;
 
 const list = [
     { 
@@ -57,14 +57,15 @@ module.exports.Get =  user_id => collection.findOne({_id: user_id});
 //code in the function which is a return, so we don't even need to write return. list[user_id] is 
 //automatically returned
 
-module.exports.GetByHandle = (handle) => ({ ...collection.findOne({ handle }), password: undefined }); 
+module.exports.GetByHandle = (handle) => collection.findOne({ handle }).then(x => ({ ...x, password: undefined }));
 
 module.exports.Add = async function Add(user){
+
     if(!user.firstName){
         return Promise.reject({ code: 422, msg: "A first name is required" });
     }
 
-    const hash = await bcrypt.hash(user.password, +process.env.SALT_ROUNDS);
+    const hash = await bcrypt.hash(user.password, +process.env.SALT_ROUNDS);    //the + before a variable converts it to numeric representation 
 
     console.log({
         user, 
@@ -75,6 +76,7 @@ module.exports.Add = async function Add(user){
     user.password = hash;
 
     const user2 = await collection.insertOne(user);
+
     user._id = user2.insertedId;
 
     return { ...user, password: undefined };
@@ -94,7 +96,7 @@ module.exports.Add =  function Add(user) {
 module.exports.Update = async function Update(user_id, user){
 
     const results = await collection.findOneAndUpdate(
-        { _id: ObjectId(user_id) },     //where _id equals user id (this is what finds)
+        { _id: new ObjectId(user_id) },     //where _id equals user id (this is what finds)
         { $set: user },                 //$set operator in mongo does the patching 
         { returnDocument: 'after' }     //options. This says return the updated object
     );
@@ -105,10 +107,10 @@ module.exports.Update = async function Update(user_id, user){
 
 }
 
-module.exports.Delete =  function Delete(user_id) {
-    const user = list[user_id];
-    list.splice(user_id, 1);
-    return user;
+module.exports.Delete =  async function Delete(user_id) {
+    const results = await collection.findOneAndDelete({ _id: new ObjectId(user_id) });
+
+    return results.value;
 }
 
 module.exports.Login =  async function Login(handle, password){
@@ -132,7 +134,7 @@ module.exports.Login =  async function Login(handle, password){
 
 }
 
-module.exports.Seed = async ()=>{
+module.exports.Seed = async () => {
     for (const x of list){
         await module.exports.Add(x);
     }

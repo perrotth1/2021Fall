@@ -3,7 +3,7 @@ const path = require('path');
 
 require('dotenv').config();   //We don't need to create an object; we just call method directly from require
 
-console.log(`The best class at New Paltz is ${process.env.BEST_CLASS}`);  //interpolated string
+console.log(`The best class at New Paltz is ${process.env.BEST_CLASS}`);  //interpolated string is wrapped in ``
 
 //Having environmental variables lets us allow the end user of the webapp to set their own config variables
 //in heroku for example there is a page for setting env variables
@@ -21,15 +21,16 @@ app
   
   .get('*', (req, res, next) => {     //Example: Registering these functions to handle specific situations. 
   console.log("a request came in");
-  next();
+  next();   //this says go to next in pipeline
   })
 
   .use('/', express.static(path.join(__dirname, '../docs')) )     //static() returns a subpipeline just like a router
 
   .use((req, res, next) => {      
-    res.setHeader('Access-Control-Allow-Origin', '*');    //CORS headers. Sending headers that say "We know you're coming from another 3rd party site and that's fine"
+    res.setHeader('Access-Control-Allow-Origin', '*');    //CORS headers. Sending headers that say "We know you're coming from another 3rd party site and that's fine. Without these Chrome will block our app from working"
     res.setHeader('Access-Control-Allow-Methods', '*');
     res.setHeader('Access-Control-Allow-Headers', '*');
+    next();
   })
 
   .use(express.json())
