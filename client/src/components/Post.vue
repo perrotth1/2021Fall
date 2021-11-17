@@ -3,7 +3,7 @@
     <div class="card-image">
       <figure class="image is-4by3">
         <img :src="post.src" :alt="post.alt" />
-          <button class="delete" @click="$emit('remove')"></button>   //This triggers event "remove". In the Feed.vue there is the event handler @remove in the post element that gets activated by this. "emit" sends out the message 
+          <button class="delete" @click="$emit('remove')"></button>   <!--This triggers event "remove". In the Feed.vue there is the event handler @remove in the post element that gets activated by this. "emit" sends out the message -->
       </figure>
     </div>
     <div class="card-content">
