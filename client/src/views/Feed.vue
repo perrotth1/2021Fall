@@ -29,7 +29,7 @@ export default {
         posts: []
     }),
     async mounted(){    //a constructor
-      this.posts = await GetFeed(session.user.handle)
+      this.posts = await GetFeed(session.user.handle);
     },
     methods: {
       async remove(post, i){
